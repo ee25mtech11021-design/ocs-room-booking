@@ -2,6 +2,7 @@ import { createClient } from '@/lib/supabase/server'
 import { redirect } from 'next/navigation'
 import AddRoomForm from './AddRoomForm'
 import EditRoomRow from './EditRoomRow'
+import ImportRoomsForm from './ImportRoomsForm'
 
 export default async function RoomsPage() {
   const supabase = await createClient()
@@ -23,6 +24,7 @@ export default async function RoomsPage() {
     <div>
       <h2 className="text-2xl font-bold text-gray-800 mb-6">Manage Rooms</h2>
       <AddRoomForm blocks={blocks ?? []} />
+      <ImportRoomsForm blocks={blocks ?? []} />
 
       <div className="mt-8 bg-white rounded-xl shadow-sm border border-gray-100 overflow-hidden">
         <table className="w-full text-sm">
