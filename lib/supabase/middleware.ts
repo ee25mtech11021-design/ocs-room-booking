@@ -27,6 +27,22 @@ export async function updateSession(request: NextRequest) {
 
   const { data: { user } } = await supabase.auth.getUser()
 
+  
+if (user) {
+  const { data: profile } = await supabase
+    .from('profiles')
+    .select('is_active')
+    .eq('id', user.id)
+    .single()
+
+  if (profile && !profile.is_active) {
+    const url = request.nextUrl.clone()
+    url.pathname = '/login'
+    url.searchParams.set('error', 'Account deactivated')
+    return NextResponse.redirect(url)
+  }
+}
+
   // If not logged in and not on the login page → redirect to login
   if (
     !user &&

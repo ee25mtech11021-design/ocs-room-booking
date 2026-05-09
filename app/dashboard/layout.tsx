@@ -42,6 +42,11 @@ export default async function DashboardLayout({
           <Link href="/dashboard/bookings"
             className="px-3 py-2 rounded-lg hover:bg-blue-800">
             📋 My Bookings
+            
+<Link href="/dashboard/settings"
+  className="px-3 py-2 rounded-lg hover:bg-blue-800">
+  ⚙️ Settings
+</Link>
           </Link>
 
           {isAdmin && (
