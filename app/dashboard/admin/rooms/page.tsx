@@ -1,6 +1,7 @@
 import { createClient } from '@/lib/supabase/server'
 import { redirect } from 'next/navigation'
 import AddRoomForm from './AddRoomForm'
+import EditRoomRow from './EditRoomRow'
 
 export default async function RoomsPage() {
   const supabase = await createClient()
@@ -32,25 +33,12 @@ export default async function RoomsPage() {
               <th className="px-6 py-3 text-left">Capacity</th>
               <th className="px-6 py-3 text-left">Status</th>
               <th className="px-6 py-3 text-left">Notes</th>
+              <th className="px-6 py-3 text-left">Actions</th>
             </tr>
           </thead>
           <tbody className="divide-y divide-gray-100">
             {rooms?.map(room => (
-              <tr key={room.id} className="hover:bg-gray-50">
-                <td className="px-6 py-4">{room.blocks?.name}</td>
-                <td className="px-6 py-4 font-medium">{room.room_number}</td>
-                <td className="px-6 py-4">{room.capacity}</td>
-                <td className="px-6 py-4">
-                  <span className={`px-2 py-1 rounded-full text-xs font-medium ${
-                    room.is_available
-                      ? 'bg-green-100 text-green-700'
-                      : 'bg-red-100 text-red-700'
-                  }`}>
-                    {room.is_available ? 'Available' : 'Unavailable'}
-                  </span>
-                </td>
-                <td className="px-6 py-4 text-gray-400">{room.notes ?? '—'}</td>
-              </tr>
+              <EditRoomRow key={room.id} room={room} blocks={blocks ?? []} />
             ))}
           </tbody>
         </table>
